@@ -10,6 +10,7 @@
             <div class="container search">
                 <label>
                     <input class="form-control"/>
+                    {{locaties}}
                 </label>
             </div>
         </main>
@@ -18,13 +19,28 @@
 
 <script>
   import NavBar from "@/components/NavBar";
+  import axios from 'axios';
 
   export default {
         name: 'App',
         components: {
             NavBar,
+        },
+        data: function (){
+            return {
+                locaties: []
+            }
+        },
+        mounted() {
+            axios.get('http://127.0.0.1:8000/rest/locatie/zoek', {
+                params: {
+                    test: 3
+                }
+            }).then(function (response) {
+                this.locaties = response.data;
+            })
         }
-    }
+  }
 </script>
 
 <style lang="scss">
